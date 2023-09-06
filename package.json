@@ -1,0 +1,9 @@
+{
+  "name": "Horror Cloud SDK",
+  "version": "1.0.0",
+  "description": "Javascript package that help integrate FEAR NFT products into other websites",
+  "main": "index.js",
+  "scripts": {},
+  "author": "Fear NFT",
+  "license": "MIT"
+}
