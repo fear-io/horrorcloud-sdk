@@ -1,4 +1,4 @@
-import { SUPPORTED_PRODUCTS, HORRORCLOUD_CONTAINER_ID } from './constants';
+import { SUPPORTED_PRODUCTS, HORRORCLOUD_CONTAINER_ID, HORRORCLOUD_CONTAINER_STYLE } from './constants';
 
 class HorrorCloudSDK {
 
@@ -9,11 +9,13 @@ class HorrorCloudSDK {
     this.partnerCode = partnerCode;
   }
 
-  play = function (productId, options = { containerId, style, }) {
-    if (!SUPPORTED_PRODUCTS.map(p => p.id).includes(productId)) throw new Error("Unsupported product");
+  play = function (productId, options) {
+    options = typeof options == 'object' && options ? options : {};
+    let { containerId, style } = options;
+    style = typeof style == 'object' && style ? style : HORRORCLOUD_CONTAINER_STYLE;
+    if (!SUPPORTED_PRODUCTS.map(p => p.id).includes(productId)) throw new Error(`Unsupported product ${productId}`);
     const product = SUPPORTED_PRODUCTS.find(p => p.id == productId);
     const iframeUrl = product.homepage + "/widget?partner=" + this.partnerCode;
-    let { containerId, style } = options;
     containerId = (typeof containerId == 'string' && containerId && document.getElementById(containerId)) ? containerId : HORRORCLOUD_CONTAINER_ID;
     let htmlNode = document.getElementById(containerId);
     if (!htmlNode) {
@@ -21,7 +23,7 @@ class HorrorCloudSDK {
       htmlNode.id = containerId
       document.body.appendChild(htmlNode);
     }
-    const styles = []; Object.keys(style || {}).forEach(k => styles.push(`${k}: ${style[k]}`));
+    const styles = []; Object.keys(style).forEach(k => styles.push(`${k}: ${style[k]}`));
     htmlNode.innerHTML = `<iframe allowFullScreen src="${iframeUrl}" style="${styles.join("; ")}"></iframe>`;
   }
 

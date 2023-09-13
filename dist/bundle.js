@@ -1,6 +1,15 @@
 var HorrorCloudSDK = (function () {
   'use strict';
 
+  function _typeof(o) {
+    "@babel/helpers - typeof";
+
+    return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) {
+      return typeof o;
+    } : function (o) {
+      return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o;
+    }, _typeof(o);
+  }
   function _classCallCheck(instance, Constructor) {
     if (!(instance instanceof Constructor)) {
       throw new TypeError("Cannot call a class as a function");
@@ -57,39 +66,40 @@ var HorrorCloudSDK = (function () {
     homepage: 'https://www.whackit.co'
   }];
   var HORRORCLOUD_CONTAINER_ID = "horrorcloud-container";
+  var HORRORCLOUD_CONTAINER_STYLE = {
+    width: "100%",
+    height: '900px',
+    border: 'none'
+  };
 
   var HorrorCloudSDK = /*#__PURE__*/_createClass(function HorrorCloudSDK(partnerCode) {
     _classCallCheck(this, HorrorCloudSDK);
     _defineProperty(this, "partnerCode", null);
-    _defineProperty(this, "play", function (productId) {
-      var _this = this;
-      var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {
-        containerId: containerId,
-        style: style
-      };
-      return function () {
-        if (!SUPPORTED_PRODUCTS.map(function (p) {
-          return p.id;
-        }).includes(productId)) throw new Error("Unsupported product");
-        var product = SUPPORTED_PRODUCTS.find(function (p) {
-          return p.id == productId;
-        });
-        var iframeUrl = product.homepage + "/widget?partner=" + _this.partnerCode;
-        var containerId = options.containerId,
-          style = options.style;
-        containerId = typeof containerId == 'string' && containerId && document.getElementById(containerId) ? containerId : HORRORCLOUD_CONTAINER_ID;
-        var htmlNode = document.getElementById(containerId);
-        if (!htmlNode) {
-          htmlNode = document.createElement('div');
-          htmlNode.id = containerId;
-          document.body.appendChild(htmlNode);
-        }
-        var styles = [];
-        Object.keys(style || {}).forEach(function (k) {
-          return styles.push("".concat(k, ": ").concat(style[k]));
-        });
-        htmlNode.innerHTML = "<iframe allowFullScreen src=\"".concat(iframeUrl, "\" style=\"").concat(styles.join("; "), "\"></iframe>");
-      }();
+    _defineProperty(this, "play", function (productId, options) {
+      options = _typeof(options) == 'object' && options ? options : {};
+      var _options = options,
+        containerId = _options.containerId,
+        style = _options.style;
+      style = _typeof(style) == 'object' && style ? style : HORRORCLOUD_CONTAINER_STYLE;
+      if (!SUPPORTED_PRODUCTS.map(function (p) {
+        return p.id;
+      }).includes(productId)) throw new Error("Unsupported product ".concat(productId));
+      var product = SUPPORTED_PRODUCTS.find(function (p) {
+        return p.id == productId;
+      });
+      var iframeUrl = product.homepage + "/widget?partner=" + this.partnerCode;
+      containerId = typeof containerId == 'string' && containerId && document.getElementById(containerId) ? containerId : HORRORCLOUD_CONTAINER_ID;
+      var htmlNode = document.getElementById(containerId);
+      if (!htmlNode) {
+        htmlNode = document.createElement('div');
+        htmlNode.id = containerId;
+        document.body.appendChild(htmlNode);
+      }
+      var styles = [];
+      Object.keys(style).forEach(function (k) {
+        return styles.push("".concat(k, ": ").concat(style[k]));
+      });
+      htmlNode.innerHTML = "<iframe allowFullScreen src=\"".concat(iframeUrl, "\" style=\"").concat(styles.join("; "), "\"></iframe>");
     });
     if (!partnerCode) throw new Error("'partnerCode' param is required");
     this.partnerCode = partnerCode;
