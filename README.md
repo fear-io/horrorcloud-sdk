@@ -46,6 +46,8 @@ sdk.play('world-of-whack-it', {
 
 `style` and `containerId` are optional.
 
+If `containerId` is not supplied, new div with id `horrorcloud-container` will be appended to document.body of web page;
+
 ### Integration **without** using the SDK
 
 In case it is hard to add an external JS script to your website, you can integrate World Of Whack It to your website without installing the SDK, by adding an iframe to `https://whackit.co/widget?partner=TEST123`
