@@ -14,7 +14,7 @@ Javascript package that help integrate FEAR NFT products into other websites
 
 You can install the SDK in 2 ways:
 
-- via npm by running `npm install @fear-io/horrorcloud-sdk`
+- via package manager by running `yarn add @fear-io/horrorcloud-sdk` then `import HorrorCloudSDK from "@fear-io/horrorcloud-sdk";`
 - via JS CDN by adding [bundle.js](https://cdn.jsdelivr.net/gh/fear-io/horrorcloud-sdk/dist/bundle.js) to your web page
 
 
