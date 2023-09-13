@@ -32,20 +32,6 @@ var HorrorCloudSDK = (function () {
     });
     return Constructor;
   }
-  function _defineProperty(obj, key, value) {
-    key = _toPropertyKey(key);
-    if (key in obj) {
-      Object.defineProperty(obj, key, {
-        value: value,
-        enumerable: true,
-        configurable: true,
-        writable: true
-      });
-    } else {
-      obj[key] = value;
-    }
-    return obj;
-  }
   function _toPrimitive(input, hint) {
     if (typeof input !== "object" || input === null) return input;
     var prim = input[Symbol.toPrimitive];
@@ -72,21 +58,23 @@ var HorrorCloudSDK = (function () {
     border: 'none'
   };
 
+  var isObject = function isObject(input) {
+    return !!input && _typeof(input) == 'object';
+  };
+
   var HorrorCloudSDK = /*#__PURE__*/_createClass(function HorrorCloudSDK(partnerCode) {
     _classCallCheck(this, HorrorCloudSDK);
-    _defineProperty(this, "partnerCode", null);
-    _defineProperty(this, "play", function (productId, options) {
-      options = _typeof(options) == 'object' && options ? options : {};
+    this.play = function (productId) {
+      var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+      options = isObject(options) ? options : {};
       var _options = options,
         containerId = _options.containerId,
         style = _options.style;
-      style = _typeof(style) == 'object' && style ? style : HORRORCLOUD_CONTAINER_STYLE;
-      if (!SUPPORTED_PRODUCTS.map(function (p) {
-        return p.id;
-      }).includes(productId)) throw new Error("Unsupported product ".concat(productId));
+      style = isObject(style) ? style : HORRORCLOUD_CONTAINER_STYLE;
       var product = SUPPORTED_PRODUCTS.find(function (p) {
         return p.id == productId;
       });
+      if (!product) throw new Error("Unsupported product ".concat(productId));
       var iframeUrl = product.homepage + "/widget?partner=" + this.partnerCode;
       containerId = typeof containerId == 'string' && containerId && document.getElementById(containerId) ? containerId : HORRORCLOUD_CONTAINER_ID;
       var htmlNode = document.getElementById(containerId);
@@ -100,7 +88,7 @@ var HorrorCloudSDK = (function () {
         return styles.push("".concat(k, ": ").concat(style[k]));
       });
       htmlNode.innerHTML = "<iframe allowFullScreen src=\"".concat(iframeUrl, "\" style=\"").concat(styles.join("; "), "\"></iframe>");
-    });
+    };
     if (!partnerCode) throw new Error("'partnerCode' param is required");
     this.partnerCode = partnerCode;
   });

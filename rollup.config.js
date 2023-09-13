@@ -1,11 +1,11 @@
 import babel from 'rollup-plugin-babel';
 
 export default {
-  input: 'sdk.js',
+  input: 'dist/index.js',
   output: {
     file: 'dist/bundle.js',
     format: 'iife',
-    name: "HorrorCloudSDK",
+    name: 'HorrorCloudSDK',
   },
   plugins: [
     babel({

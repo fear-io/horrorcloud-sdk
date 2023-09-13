@@ -1,21 +1,26 @@
 {
   "name": "@fear-io/horrorcloud-sdk",
   "type": "module",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Javascript package that help integrate FEAR NFT products into other websites",
-  "main": "dist/bundle.js",
+  "main": "./dist/index.js",
+  "types": "./dist/types/index.d.ts",
   "scripts": {
-    "build": "rollup -c rollup.config.js",
+    "build": "tsc && rollup -c rollup.config.js",
     "publish-pkg": "npm publish --access public"
   },
+  "files": [
+    "dist",
+    "src"
+  ],
   "author": "Fear NFT",
   "license": "MIT",
-  "dependencies": {
-  },
+  "dependencies": {},
   "devDependencies": {
     "@babel/core": "^7.22.15",
     "@babel/preset-env": "^7.22.15",
     "rollup": "^3.29.0",
-    "rollup-plugin-babel": "^4.4.0"
+    "rollup-plugin-babel": "^4.4.0",
+    "typescript": "^5.2.2"
   }
 }
