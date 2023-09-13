@@ -6,7 +6,7 @@
   "main": "dist/bundle.js",
   "scripts": {
     "build": "rollup -c rollup.config.js",
-    "publish": "npm publish --access public"
+    "publish-pkg": "npm publish --access public"
   },
   "author": "Fear NFT",
   "license": "MIT",
